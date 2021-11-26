@@ -1,3 +1,4 @@
+import data.DataStorage;
 import data.Storage;
 import models.Route;
 import models.Station;
@@ -7,48 +8,65 @@ import ui.MainMenu;
 
 public class LogicController implements ConsoleCallback {
 
-    private Storage storage;
+    private DataStorage storage;
 
     public LogicController(){
-        storage = new Storage();
-        storage.initDefaultData();
+        storage = new DataStorage();
         MainMenu mainMenu = new MainMenu(storage, this);
         mainMenu.printMenu();
     }
 
+    //TODO исправить класс маршрута
+    //TODO array list to list
+    //TODO поправить лоджик контроллер
+
     @Override
     public void deleteDepartureStation(int routeIndex) {
-        storage.getRoutes().get(routeIndex).deleteDepartureStation();
+        Route r = storage.getRoutes().get(routeIndex);
+        r.deleteDepartureStation();
+        storage.updateRoute(r);
     }
 
     @Override
     public void addDepartureStation(int routeIndex, Station station) {
-        storage.getRoutes().get(routeIndex).setDepartureStation(station);
+        Route r = storage.getRoutes().get(routeIndex);
+        r.setDepartureStation(station);
+        storage.updateRoute(r);
     }
 
     @Override
     public void deleteComingStation(int routeIndex) {
-        storage.getRoutes().get(routeIndex).deleteComingStation();
+        Route r = storage.getRoutes().get(routeIndex);
+        r.deleteComingStation();
+        storage.updateRoute(r);
     }
 
     @Override
     public void addComingStation(int routeIndex, Station station) {
-        storage.getRoutes().get(routeIndex).setComingStation(station);
+        Route r = storage.getRoutes().get(routeIndex);
+        r.setComingStation(station);
+        storage.updateRoute(r);
     }
 
     @Override
     public void deleteIntermediateStation(int routeIndex, int stationIndex) {
-        storage.getRoutes().get(routeIndex).deleteIntermediateStation(stationIndex);
+        Route r = storage.getRoutes().get(routeIndex);
+        r.deleteIntermediateStation(stationIndex);
+        storage.updateRoute(r);
     }
 
     @Override
     public void addIntermediateStation(int routeIndex, Station station, int position) {
-        storage.getRoutes().get(routeIndex).addIntermediateStation(station, position);
+        Route r = storage.getRoutes().get(routeIndex);
+        r.addIntermediateStation(station, position);
+        storage.updateRoute(r);
     }
 
     @Override
     public void editIntermediateStation(int routeIndex, Station station, int position) {
-        storage.getRoutes().get(routeIndex).editIntermediateStation(station, position);
+        Route r = storage.getRoutes().get(routeIndex);
+        r.editIntermediateStation(station, position);
+        storage.updateRoute(r);
     }
 
     @Override

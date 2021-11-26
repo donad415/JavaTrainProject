@@ -1,16 +1,28 @@
 package models;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Route {
+    private Long id;
     private String name;
     private Station departureStation;
     private Station comingStation;
     private Train train;
-    private ArrayList<Station> intermediateStations = new ArrayList<>();
+    private List<Station> intermediateStations = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Route(String name) {
         this.name = name;
+    }
+
+    public Route() {
     }
 
     public Train getTrain() {
@@ -45,22 +57,22 @@ public class Route {
         this.comingStation = comingStation;
     }
 
-    public ArrayList<Station> getIntermediateStations() {
+    public List<Station> getIntermediateStations() {
         return intermediateStations;
     }
 
-    public void addIntermediateStation(Station station, int prefferedPosition){
-        if (prefferedPosition > intermediateStations.size()){
+    public void addIntermediateStation(Station station, int prefferedPosition) {
+        if (prefferedPosition > intermediateStations.size()) {
             intermediateStations.add(station);
-        }else if(prefferedPosition == 1){
-            ArrayList<Station> list = intermediateStations;
+        } else if (prefferedPosition == 1) {
+            List<Station> list = intermediateStations;
             intermediateStations.clear();
             intermediateStations.add(station);
             intermediateStations.addAll(list);
-        } else{
-            ArrayList<Station> list = new ArrayList<>();
-            for(int i = 0; i<intermediateStations.size(); i++){
-                if(i==prefferedPosition-1){
+        } else {
+            List<Station> list = new ArrayList<>();
+            for (int i = 0; i < intermediateStations.size(); i++) {
+                if (i == prefferedPosition - 1) {
                     list.add(station);
                     list.add(intermediateStations.get(i));
                 }
@@ -69,19 +81,19 @@ public class Route {
         }
     }
 
-    public void editIntermediateStation(Station station, int position){
-        intermediateStations.set(position-1, station);
+    public void editIntermediateStation(Station station, int position) {
+        intermediateStations.set(position - 1, station);
     }
 
-    public void deleteIntermediateStation(int index){
+    public void deleteIntermediateStation(int index) {
         intermediateStations.remove(index);
     }
 
-    public void deleteDepartureStation(){
+    public void deleteDepartureStation() {
         departureStation = null;
     }
 
-    public void deleteComingStation(){
+    public void deleteComingStation() {
         comingStation = null;
     }
 }

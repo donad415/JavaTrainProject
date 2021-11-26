@@ -1,5 +1,6 @@
 package ui.trainsMenu;
 
+import data.DataStorage;
 import data.Storage;
 import models.Station;
 import models.Train;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 public class TrainsMenu implements IMenu {
     private Scanner scanner;
-    private Storage storage;
+    private DataStorage storage;
 
     ConsoleCallback callback;
 
@@ -23,7 +24,7 @@ public class TrainsMenu implements IMenu {
 
     private final String[] TRAINS_MENU_ACTIONS = new String[]{"1", "2","3"};
 
-    public TrainsMenu(Storage storage, ConsoleCallback callback) {
+    public TrainsMenu(DataStorage storage, ConsoleCallback callback) {
         scanner = new Scanner(System.in);
         this.storage = storage;
         this.callback = callback;

@@ -1,9 +1,21 @@
 package models;
 
 public class Station {
+    private Long id;
     private String name;
     private String comingTime;
     private String departureTime;
+
+    public Station() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Station(String name) {
         this.name = name;

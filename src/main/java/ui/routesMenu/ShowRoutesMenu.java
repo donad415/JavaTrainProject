@@ -1,6 +1,8 @@
 package ui.routesMenu;
 
+import data.DataStorage;
 import data.Storage;
+import models.Route;
 import models.Station;
 import ui.ConsoleCallback;
 import ui.IMenu;
@@ -8,11 +10,13 @@ import ui.InputValidator;
 import ui.routesMenu.EditRouteMenu;
 import ui.routesMenu.RoutesMenu;
 
-import java.util.Scanner;
+import javax.xml.crypto.Data;
+import java.sql.SQLException;
+import java.util.*;
 
 public class ShowRoutesMenu implements IMenu {
     private Scanner scanner;
-    private Storage storage;
+    private DataStorage storage;
 
     ConsoleCallback callback;
 
@@ -22,24 +26,25 @@ public class ShowRoutesMenu implements IMenu {
 
     private final String[] SHOW_ROUTES_MENU_ACTIONS = new String[]{"1", "2"};
 
-    public ShowRoutesMenu(Storage storage, ConsoleCallback callback) {
+    public ShowRoutesMenu(DataStorage storage, ConsoleCallback callback) {
         scanner = new Scanner(System.in);
         this.storage = storage;
         this.callback = callback;
     }
 
     public void printMenu() {
-        for (int i = 0; i < storage.getRoutes().size(); i++) {
+        List<Route> routes =  storage.getRoutes();
+        for (int i = 0; i < routes.size(); i++) {
             int num = i + 1;
-            if(storage.getRoutes().get(i).getDepartureStation() == null){
-                storage.getRoutes().get(i).setDepartureStation(new Station(""));
+            if(routes.get(i).getDepartureStation() == null){
+                routes.get(i).setDepartureStation(new Station(""));
             }
-            if(storage.getRoutes().get(i).getComingStation() == null){
-                storage.getRoutes().get(i).setComingStation(new Station(""));
+            if(routes.get(i).getComingStation() == null){
+                routes.get(i).setComingStation(new Station(""));
             }
-            System.out.println(num + " - " + storage.getRoutes().get(i).getName() + "   "
-                    + storage.getRoutes().get(i).getDepartureStation().getName() + " - "
-                    + storage.getRoutes().get(i).getComingStation().getName());
+            System.out.println(num + " - " + routes.get(i).getName() + "   "
+                    + routes.get(i).getDepartureStation().getName() + " - "
+                    + routes.get(i).getComingStation().getName());
         }
         System.out.println(SHOW_ROUTES_MENU_STRING);
         String input = scanner.nextLine();

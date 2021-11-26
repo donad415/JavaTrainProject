@@ -1,5 +1,6 @@
 package ui.routesMenu;
 
+import data.DataStorage;
 import data.Storage;
 import models.Route;
 import models.Station;
@@ -12,11 +13,11 @@ import java.util.Scanner;
 public class AddRouteMenu implements IMenu {
 
     private Scanner scanner;
-    private Storage storage;
+    private DataStorage storage;
 
     ConsoleCallback callback;
 
-    public AddRouteMenu(Storage storage, ConsoleCallback callback) {
+    public AddRouteMenu(DataStorage storage, ConsoleCallback callback) {
         scanner = new Scanner(System.in);
         this.storage = storage;
         this.callback = callback;

@@ -1,5 +1,6 @@
 package ui.routesMenu;
 
+import data.DataStorage;
 import data.Storage;
 import models.Route;
 import models.Station;
@@ -7,30 +8,31 @@ import ui.ConsoleCallback;
 import ui.IMenu;
 import ui.InputValidator;
 
-import java.util.ArrayList;
+import javax.xml.crypto.Data;
+import java.util.*;
 import java.util.Scanner;
 
 public class EditRouteMenu implements IMenu {
     private Scanner scanner;
     private int routeIndex;
-    private Storage storage;
+    private DataStorage storage;
 
     ConsoleCallback callback;
 
     private final String EDIT_ROUTES_MENU_STRING = "\nВыберите действие:\n" +
             "1-изменить пункт отправления\n" +
-            "2-удалить пункт отправления\n" +
-            "3-изменить пункт прибытия\n" +
-            "4-удалить пункт прибытия\n" +
-            "5-изменить промежуточный пункт\n" +
-            "6-добавить промежуточный пункт\n"+
-            "7-удалить промежуточный пункт\n" +
-            "8-Вернуться";
+           // "2-удалить пункт отправления\n" +
+            "2-изменить пункт прибытия\n" +
+            //"4-удалить пункт прибытия\n" +
+            "3-изменить промежуточный пункт\n" +
+            "4-добавить промежуточный пункт\n"+
+            "5-удалить промежуточный пункт\n" +
+            "6-Вернуться";
 
     private final String[] EDIT_ROUTES_MENU_ACTIONS =
-            new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+            new String[]{"1", "2", "3", "4", "5", "6"};
 
-    public EditRouteMenu(int routeIndex, Storage storage, ConsoleCallback callback) {
+    public EditRouteMenu(int routeIndex, DataStorage storage, ConsoleCallback callback) {
         scanner = new Scanner(System.in);
         this.routeIndex = routeIndex;
         this.storage = storage;
@@ -73,25 +75,25 @@ public class EditRouteMenu implements IMenu {
             case "1":
                 addDepartureStation();
                 break;
-            case "2":
+            /*case "2":
                 deleteDepartureStation();
-                break;
-            case "3":
+                break;*/
+            case "2":
                 addComingStation();
                 break;
-            case "4":
+            /*case "4":
                 deleteComingStation();
-                break;
-            case "5":
+                break;*/
+            case "3":
                 editIntermediateStation();
                 break;
-            case "6":
+            case "4":
                 addIntermediateStation();
                 break;
-            case "7":
+            case "5":
                 deleteIntermediateStation();
                 break;
-            case "8":
+            case "6":
                 back();
                 break;
 
@@ -156,6 +158,8 @@ public class EditRouteMenu implements IMenu {
         station.setComingTime(scanner.nextLine());
         System.out.println("Введите время отправления: ");
         station.setDepartureTime(scanner.nextLine());
+        storage.updateStation(station);
+
 
         callback.addDepartureStation(routeIndex, station);
 
@@ -184,6 +188,7 @@ public class EditRouteMenu implements IMenu {
         station.setComingTime(scanner.nextLine());
         System.out.println("Введите время отправления: ");
         station.setDepartureTime(scanner.nextLine());
+        storage.updateStation(station);
 
         callback.addComingStation(routeIndex, station);
 
@@ -192,7 +197,7 @@ public class EditRouteMenu implements IMenu {
     }
 
     private void deleteIntermediateStation(){
-        ArrayList<Station> intermediateStations =
+        List<Station> intermediateStations =
                 storage.getRoutes().get(routeIndex).getIntermediateStations();
         System.out.println("Выберите станцию: ");
         for (int i = 0; i < intermediateStations.size(); i++) {
@@ -249,6 +254,7 @@ public class EditRouteMenu implements IMenu {
         station.setComingTime(scanner.nextLine());
         System.out.println("Введите время отправления: ");
         station.setDepartureTime(scanner.nextLine());
+        storage.updateStation(station);
 
         callback.addIntermediateStation(routeIndex, station, Integer.parseInt(position));
 
@@ -289,6 +295,7 @@ public class EditRouteMenu implements IMenu {
         station.setComingTime(scanner.nextLine());
         System.out.println("Введите время отправления: ");
         station.setDepartureTime(scanner.nextLine());
+        storage.updateStation(station);
 
         callback.editIntermediateStation(routeIndex, station, Integer.parseInt(position));
 

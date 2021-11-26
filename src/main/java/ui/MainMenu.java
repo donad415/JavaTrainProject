@@ -1,5 +1,6 @@
 package ui;
 
+import data.DataStorage;
 import data.Storage;
 import ui.routesMenu.RoutesMenu;
 import ui.stationsMenu.StationsMenu;
@@ -9,7 +10,7 @@ import java.util.Scanner;
 
 public class MainMenu implements IMenu{
     private Scanner scanner;
-    private Storage storage;
+    private DataStorage storage;
 
     private final String MAIN_MENU_STRING = "\n|Главное меню|  Выберите действие:\n1-управление маршрутами\n" +
             "2-управление поездами\n3-управление станциями";
@@ -18,7 +19,7 @@ public class MainMenu implements IMenu{
 
     ConsoleCallback callback;
 
-    public MainMenu(Storage storage, ConsoleCallback callback){
+    public MainMenu(DataStorage storage, ConsoleCallback callback){
         scanner = new Scanner(System.in);
         this.callback = callback;
         this.storage = storage;
