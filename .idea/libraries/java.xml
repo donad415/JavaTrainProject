@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="java">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../postgresql-42.3.1-jdbc-src/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../postgresql-42.3.1-jdbc-src/src/main/version" />
+      <root url="file://$PROJECT_DIR$/../postgresql-42.3.1-jdbc-src/src/test/java" />
+    </SOURCES>
+  </library>
+</component>

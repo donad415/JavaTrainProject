@@ -100,6 +100,15 @@ public class DataStorage {
         }
     }
 
+    public void deleteRouteById(int id){
+        try(Connection c = getConnection()){
+            PreparedStatement statement = c.prepareStatement("delete from routes where id = "+id);
+            statement.executeUpdate();
+        }catch (SQLException | ClassNotFoundException ex){
+            throw new RuntimeException("Cannot load stations", ex);
+        }
+    }
+
     private Station getStationById(List<Station> stations, long id) {
         for(Station station: stations){
             if(station.getId() == id){
@@ -120,6 +129,7 @@ public class DataStorage {
 
     public Connection getConnection() throws SQLException, ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
+        //DriverManager.registerDriver(new org.postgresql.Driver());
         return DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/trainproject?user=postgres&password=12345678");
     }
 
@@ -151,18 +161,17 @@ public class DataStorage {
     private Route saveRouteToDb (Route route) throws SQLException, ClassNotFoundException {
         try(Connection c = getConnection()){
             PreparedStatement statement = c.prepareStatement(
-                    "insert into routes(route_name, train_id) values (?, ?)");
+                    "insert into routes(route_name, train_id, departure_station_id, coming_station_id, intermediate_stations) values (?, ?, ?, ?, ?)");
             statement.setString(1, route.getName());
             statement.setLong(2, route.getTrain().getId());
-           /* statement.setLong(2, route.getDepartureStation().getId());
-            statement.setLong(3, route.getComingStation().getId());
+            statement.setLong(3, route.getDepartureStation().getId());
+            statement.setLong(4, route.getComingStation().getId());
 
             Long[] stationIds = new Long[route.getIntermediateStations().size()];
             for(int i = 0; i< stationIds.length; i++){
                 stationIds[i] = route.getIntermediateStations().get(i).getId();
             }
             statement.setArray(5, c.createArrayOf("BIGINT", stationIds));
-*/
             statement.executeUpdate();
         }
         return route;
